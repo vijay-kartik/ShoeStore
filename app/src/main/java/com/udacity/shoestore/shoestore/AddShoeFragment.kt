@@ -23,9 +23,9 @@ class AddShoeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_shoe, container, false)
-        binding.cancelBtn.setOnClickListener(
-            Navigation.createNavigateOnClickListener(AddShoeFragmentDirections.actionAddShoeFragmentToShoeListFragment())
-        )
+        binding.cancelBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
         binding.saveBtn.setOnClickListener {
             viewModel.addShoe(binding.nameDetail.text.toString(),
                 binding.companyDetail.text.toString(),

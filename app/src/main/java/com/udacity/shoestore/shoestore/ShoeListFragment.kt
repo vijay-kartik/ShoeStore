@@ -3,6 +3,7 @@ package com.udacity.shoestore.shoestore
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -32,8 +33,10 @@ class ShoeListFragment : Fragment() {
         binding.fabShoeAdd.setOnClickListener(
             Navigation.createNavigateOnClickListener(ShoeListFragmentDirections.actionShoeListFragmentToAddShoeFragment())
         )
-        viewModel.shoe.observe(requireActivity(), { shoe ->
-            addShoeLayout(shoe)
+        viewModel.shoelist.observe(requireActivity(), { shoelist ->
+            shoelist.forEach {
+                addShoeLayout(it)
+            }
         })
         return binding.root
     }
@@ -59,11 +62,8 @@ class ShoeListFragment : Fragment() {
     }
 
     fun addShoeLayout(shoe: Shoe) {
-        Log.d("shoelistfragment", "shoe observed: " + shoe)
         val shoeLayoutBinding = DataBindingUtil.inflate<ShoeLayoutBinding>(layoutInflater, R.layout.shoe_layout, binding.shoelistLayout, false)
-        shoeLayoutBinding.shoeName.text = shoe.name
-        shoeLayoutBinding.sample.text = "Helloooo"
-        shoeLayoutBinding.notifyChange()
+        shoeLayoutBinding.shoe = shoe
         binding.shoelistLayout.addView(shoeLayoutBinding.root)
     }
 }

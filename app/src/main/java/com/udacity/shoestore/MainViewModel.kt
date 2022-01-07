@@ -7,13 +7,12 @@ import androidx.lifecycle.ViewModel
 import com.udacity.shoestore.models.Shoe
 
 class MainViewModel: ViewModel() {
-    private var _shoelist = mutableListOf<Shoe>()
-    var _shoe = MutableLiveData<Shoe>()
-    val shoe: LiveData<Shoe>
-        get() = _shoe
+    private var _shoelist = MutableLiveData(mutableListOf<Shoe>())
+    val shoelist: LiveData<MutableList<Shoe>>
+        get() = _shoelist
 
     fun addShoe(name: String, company: String, size: String, desc: String) {
-        _shoe.value = Shoe(name, size.toDouble(), company, desc)
+        _shoelist.value?.add(Shoe(name, size.toDouble(), company, desc))
     }
 
 }
